@@ -10,6 +10,7 @@ public class InputController {
 
     @GetMapping("/input/register")
     public String showForm(Model model) {
+        // model.addAttribute() : コントローラからビューにデータを渡すためのメソッド
         model.addAttribute("inputForm", new InputForm());
         return "register";
     }
