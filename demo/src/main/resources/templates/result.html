@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>結果画面</title>
+  </head>
+  <body>
+    <h1>登録結果</h1>
+
+    <p>名前<span th:text="${inputForm.name}"></span></p>
+    <p>年齢<span th:text="${inputForm.age}"></span></p>
+    <p>性別<span th:text="${inputForm.gender}"></span></p>
+    <p>住所<span th:text="${inputForm.address}"></span></p>
+    <p>希望年収<span th:text="${inputForm.income}"></span></p>
+  </body>
+</html>

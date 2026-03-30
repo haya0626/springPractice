@@ -16,5 +16,5 @@ public class InputForm {
 
     private String address; // 住所
 
-    private Integer income;	// 年収
+    private String income;	// 年収
 }

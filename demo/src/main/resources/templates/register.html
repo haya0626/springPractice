@@ -7,7 +7,11 @@
   <body>
     <h1>登録フォーム</h1>
 
-    <form th:object="${inputForm}" method="post">
+    <form
+      th:object="${inputForm}"
+      th:action="@{/result/register}"
+      method="post"
+    >
       <table>
         <tr>
           <td><label>名前</label></td>
@@ -29,12 +33,22 @@
         </tr>
         <tr>
           <td><label>希望年収</label></td>
-          <td><input type="text" th:field="*{income}" /></td>
+          <td>
+            <input type="text" th:field="*{income}" onblur="zeroPad(this, 3)" />
+          </td>
         </tr>
         <tr>
           <td><input type="submit" value="登録" /></td>
         </tr>
       </table>
     </form>
+
+    <script>
+      function zeroPad(e, length) {
+        if (!e.value) return;
+
+        e.value = String(e.value).padStart(length, "0");
+      }
+    </script>
   </body>
 </html>
