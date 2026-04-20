@@ -28,7 +28,10 @@
         <tr>
           <td><label>住所</label></td>
           <td>
-            <textarea cols="40" rows="2" th:field="*{address}"></textarea>
+            <div class="address-wrapper">
+              <input type="text" id="address" th:field="*{address}" />
+              <ul id="addressSuggestions"></ul>
+            </div>
           </td>
         </tr>
         <tr>
@@ -44,11 +47,61 @@
     </form>
 
     <script>
+      // =============================
+      // 希望年収の桁埋め処理
+      // =============================
       function zeroPad(e, length) {
         if (!e.value) return;
-
         e.value = String(e.value).padStart(length, "0");
       }
+
+      // =============================
+      // 入力候補日の取得
+      // =============================
+      // 住所入力欄
+      const addressInput = document.getElementById("address");
+      // 入力候補の表示領域
+      const suggestionsArea = document.getElementById("addressSuggestions");
+
+      // 住所入力時に候補取得APIを呼ぶ
+      addressInput.addEventListener("input", function () {
+        // 前後の空白を除去
+        const keyword = this.value.trim();
+
+        // 入力候補のリセット
+        if (!keyword) {
+          suggestionsArea.innerHTML = "";
+          return;
+        }
+
+        // API呼び出し
+        fetch(`/api/address/suggest?keyword=${encodeURIComponent(keyword)}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // 入力候補のリセット
+            suggestionsArea.innerHTML = "";
+
+            if (!data.suggestions || data.suggestions.length === 0) {
+              return;
+            }
+
+            data.suggestions.map((item) => {
+              const liElement = document.createElement("li");
+              // 画面項目の作成
+              liElement.textContent = item.address;
+
+              // 候補をクリックしたら入力欄に反映させる処理
+              liElement.addEventListener("click", function () {
+                addressInput.value = item.address;
+                // 入力候補のリセット
+                suggestionsArea.innerHTML = "";
+              });
+
+              // 入力候補を画面に追加する
+              suggestionsArea.appendChild(liElement);
+            });
+          });
+      });
     </script>
   </body>
 </html>
