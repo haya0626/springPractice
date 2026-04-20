@@ -1,4 +1,4 @@
-package practice.controller;
+package practice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InputForm {
+public class InputFormDto {
     private String name; // 名前
 
     private Integer age; // 年齢
